@@ -1,0 +1,13 @@
+.logo {
+    width: 142px;
+    height: 33px;
+    background-image: url(../../images/Vector.svg);
+}
+
+@media (max-width: 596px) {
+    .logo {
+        width: 104px;
+        height: 24px;
+        background-size: cover;
+    }
+}

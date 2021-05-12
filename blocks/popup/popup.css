@@ -1,0 +1,10 @@
+.popup {
+    background: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    display: none;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    flex-direction: column;
+}
