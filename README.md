@@ -8,3 +8,5 @@
 Способы именования элементов/компонент — БЭМ;
 Адаптианая, отзывчивая верстка;
 Функционал: javascript
+
+https://rmatrosov.github.io/mesto/index.html
