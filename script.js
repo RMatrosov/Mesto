@@ -1,6 +1,6 @@
 const redactBtn = document.querySelector('.profile__button');
 const popup = document.querySelector('.popup');
-const closeBtn = document.querySelector('.popup__button_close');
+const closeBtn = document.querySelector('.popup__button-close');
 const formElement = document.querySelector('.popup__container');
 const nameInput = document.querySelector('.popup__name');
 const jobInput = document.querySelector('.popup__job');
