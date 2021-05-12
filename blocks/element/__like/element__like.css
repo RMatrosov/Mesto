@@ -1,10 +1,10 @@
-.element__button_like {
+.element__like {
     border: 0;
     width: 22px;
     background: url(../../../images/like.svg) no-repeat center;
 }
 
-.element__button_like:hover {
+.element__like:hover {
     opacity: 0.5;
     cursor: pointer;
 }
