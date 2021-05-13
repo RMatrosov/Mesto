@@ -1,20 +1,9 @@
 .header {
     margin: 0 auto;
     max-width: 880px;
-    min-height: 74px;
     display: flex;
-    padding-top: 45px;
-    border-bottom: 1px solid #545454;
+    padding: 45px 0 41px 0;
+    border-bottom: 1px solid rgba(84, 84, 84, 0.7);
 }
 
-@media (max-width: 1024px) {
-    .header {
-        max-width: calc(100% - 48px * 2);
-    }
-}
 
-@media (max-width: 596px) {
-    .header {
-        max-width: calc(100% - 19px * 2);
-    }
-}

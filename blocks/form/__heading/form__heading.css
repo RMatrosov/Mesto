@@ -1,4 +1,4 @@
-.popup__heading {
+.form__heading {
     font-family: Inter, Arial, sans-serif;
     font-style: normal;
     font-weight: 900;
@@ -9,7 +9,7 @@
 }
 
 @media (max-width: 596px) {
-    .popup__heading {
+    .form__heading {
         font-size: 18px;
         line-height: 22px;
         margin: 34px 22px 39px 22px;
