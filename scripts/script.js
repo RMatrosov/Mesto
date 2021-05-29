@@ -54,7 +54,7 @@ const imageTitle = document.querySelector(".big__image_title");
 function createCardFunk(evt) {
     evt.preventDefault();
     const newCard = {};
-    if (cardTitle.value !== '' || cardLink.value !== '') {
+    if (cardTitle.value !== '' && cardLink.value !== '') {
         newCard.name = cardTitle.value;
         newCard.link = cardLink.value;
         renderItem(newCard)
