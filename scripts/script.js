@@ -47,8 +47,8 @@ const elementTemplate = document.querySelector(".element_template").content;
 
 const imagePopup = document.querySelector(".popup_type_image");
 const bigImgCloseBtn = document.querySelector(".popup__button-close_type_image");
-const bigImage = document.querySelector(".popup__img_type_image");
-const imageTitle = document.querySelector(".popup__title_type_image");
+const bigImage = document.querySelector(".popup__img");
+const imageTitle = document.querySelector(".popup__title");
 
 function createCardFunk(evt) {
     evt.preventDefault();
