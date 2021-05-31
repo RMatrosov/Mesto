@@ -61,8 +61,8 @@ function renderItem(item) {
     const element = htmlElement.querySelector('.element');
     const elementImg = element.querySelector('.element__image');
     const elementTitle = element.querySelector('.element__title');
-    htmlElement.querySelector('.element__title').innerText = item.name;
-    htmlElement.querySelector('.element__image').src = item.link;
+    elementTitle.innerText = item.name;
+    elementImg.src = item.link;
     htmlElement.querySelector('.element__like').addEventListener('click', function (evt) {
         evt.target.classList.toggle('element__like_active');
     });
