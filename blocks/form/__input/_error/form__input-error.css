@@ -1,4 +1,4 @@
-.popup__input_type_error {
+.form__input-error {
     font-family: Inter, Arial, sans-serif;
     font-style: normal;
     font-weight: normal;
@@ -7,4 +7,5 @@
     color: #FF0000;
     max-width: 358px;
     position: absolute;
+    opacity: 0;
 }
