@@ -10,8 +10,8 @@
     width: 100%;
     box-sizing: border-box;
     border-bottom: 1px solid #bcbcc4;
-    margin: 0 0 27px 36px;
-    padding-bottom: 13px;
+    margin: 0 0 48px 36px;
+
 }
 
 .form__input:nth-child(3) {
@@ -21,6 +21,6 @@
 @media (max-width: 596px) {
     .form__input {
         max-width: 238px;
-        margin: 0 22px 27px 22px;
+        margin: 0 22px 42px 22px;
     }
 }
