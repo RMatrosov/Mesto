@@ -1,33 +1,6 @@
-const initialCards = [
-    {
-        name: 'Архыз',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-        name: 'Челябинская область',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-        name: 'Иваново',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-        name: 'Камчатка',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-        name: 'Холмогорский район',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-        name: 'Байкал',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    },
-];
-
-const redactBtn = document.querySelector('.profile__button');
+const editProfileBtn = document.querySelector('.profile__button');
 const editProfilePopup = document.querySelector('.popup_type_edit');
-const closeBtn = document.querySelector('.popup__button-close');
+const editProfileBtnClose = document.querySelector('.popup__button-close');
 const newCardBtnClose = document.querySelector('#newCardBtnClose');
 const nameInput = document.querySelector('#name');
 const jobInput = document.querySelector('#job');
@@ -46,22 +19,23 @@ const popupTypeImageTitle = document.querySelector(".popup__title");
 
 function createCardFunk(evt) {
     evt.preventDefault();
-    if (newCardTitleInput.value !== '' && newCardLinkInput.value !== '') {
-        const newCard = {};
-        newCard.name = newCardTitleInput.value;
-        newCard.link = newCardLinkInput.value;
-        renderItem(newCard);
-    }
+    const formBtn = document.querySelector('#newCardSubmitBtn')
+    const newCard = {};
+    newCard.name = newCardTitleInput.value;
+    newCard.link = newCardLinkInput.value;
+    renderCard(newCard);
+    formBtn.classList.add('form__button_disabled');
     closePopup();
 }
 
-function renderItem(item) {
+function createCard(item) {
     const htmlElement = elementTemplate.cloneNode(true);
     const element = htmlElement.querySelector('.element');
     const elementImg = element.querySelector('.element__image');
     const elementTitle = element.querySelector('.element__title');
     elementTitle.innerText = item.name;
     elementImg.src = item.link;
+    elementImg.alt = item.name;
     htmlElement.querySelector('.element__like').addEventListener('click', function (evt) {
         evt.target.classList.toggle('element__like_active');
     });
@@ -71,27 +45,33 @@ function renderItem(item) {
     elementImg.addEventListener('click', () => {
         popupTypeImageTitle.textContent = elementTitle.textContent;
         bigImage.src = elementImg.src;
+        bigImage.alt = elementTitle.textContent;
         openPopup(imagePopup);
     })
-
-    elementsList.prepend(htmlElement);
+    return htmlElement;
 }
 
+function renderCard (htmlElement){
+    const element = createCard(htmlElement)
+    elementsList.prepend(element);
+}
 
 function renderItems() {
-    initialCards.forEach(renderItem);
+    initialCards.forEach(renderCard);
 }
 
 function openPopup(popup) {
     popup.classList.add('popup_opened');
+    document.addEventListener('keydown', handleOverlay);
 }
 
 function closePopup() {
     const popupOpened = document.querySelector('.popup_opened');
     popupOpened.classList.remove('popup_opened');
+    document.removeEventListener('keydown', handleOverlay);
 }
 
-function popupTypeEditHandler(evt) {
+function handlePopupTypeEdit(evt) {
     evt.preventDefault();
     profileName.textContent = nameInput.value;
     profileJob.textContent = jobInput.value;
@@ -106,14 +86,15 @@ function handleOpenEditProfilePopup() {
 
 function handleOpenNewCardPopup() {
     openPopup(newCardPopup);
-    document.querySelector('#form_new-card').reset()
+    const formNewCard = document.querySelector('#form_new-card');
+    formNewCard.reset()
 }
 
-document.addEventListener('keydown', (evt) => {
+function handleOverlay(evt) {
     if (evt.key === 'Escape') {
         closePopup();
     }
-});
+}
 
 const closePopupOverlay = () => {
     const popups = Array.from(document.querySelectorAll('.popup'));
@@ -126,9 +107,9 @@ const closePopupOverlay = () => {
     });
 };
 
-redactBtn.addEventListener('click', handleOpenEditProfilePopup);
-closeBtn.addEventListener('click', closePopup);
-editProfilePopup.addEventListener('submit', popupTypeEditHandler);
+editProfileBtn.addEventListener('click', handleOpenEditProfilePopup);
+editProfileBtnClose.addEventListener('click', closePopup);
+editProfilePopup.addEventListener('submit', handlePopupTypeEdit);
 addImageBtn.addEventListener('click', handleOpenNewCardPopup);
 newCardBtnClose.addEventListener('click', closePopup);
 newCardPopup.addEventListener('submit', createCardFunk);
