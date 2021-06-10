@@ -63,6 +63,7 @@ function renderItems() {
 function openPopup(popup) {
     popup.classList.add('popup_opened');
     document.addEventListener('keydown', handleOverlay);
+    closePopupOverlay()
 }
 
 function closePopup() {
@@ -116,4 +117,3 @@ newCardPopup.addEventListener('submit', createCardFunk);
 bigImgCloseBtn.addEventListener('click', closePopup);
 
 renderItems();
-closePopupOverlay()
