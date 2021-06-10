@@ -50,13 +50,22 @@ const hasInvalidInput = (inputList) => {
 
 const toggleButtonState = (inputList, buttonElement, props) => {
     if (hasInvalidInput(inputList)) {
-        buttonElement.classList.add(props.inactiveButtonClass);
-        buttonElement.setAttribute('disabled', true)
+        addBtnDisables(buttonElement, props);
     } else {
-        buttonElement.classList.remove(props.inactiveButtonClass);
-        buttonElement.removeAttribute('disabled')
+        removeBtnDisabled(buttonElement, props);
     }
 };
+
+const addBtnDisables = (buttonElement, props) => {
+    buttonElement.classList.add(props.inactiveButtonClass);
+    buttonElement.setAttribute('disabled', true);
+
+}
+
+const removeBtnDisabled = (buttonElement, props) => {
+    buttonElement.classList.remove(props.inactiveButtonClass);
+    buttonElement.removeAttribute('disabled');
+}
 
 enableValidation({
     formSelector: '.form',

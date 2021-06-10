@@ -19,12 +19,13 @@ const popupTypeImageTitle = document.querySelector(".popup__title");
 
 function createCardFunk(evt) {
     evt.preventDefault();
-    const formBtn = document.querySelector('#newCardSubmitBtn')
+    const formBtn = document.querySelector('#newCardSubmitBtn');
+    const inactiveButtonClass = {inactiveButtonClass: 'form__button_disabled'};
     const newCard = {};
     newCard.name = newCardTitleInput.value;
     newCard.link = newCardLinkInput.value;
     renderCard(newCard);
-    formBtn.classList.add('form__button_disabled');
+    addBtnDisables(formBtn, inactiveButtonClass);
     closePopup();
 }
 
@@ -51,8 +52,8 @@ function createCard(item) {
     return htmlElement;
 }
 
-function renderCard (htmlElement){
-    const element = createCard(htmlElement)
+function renderCard(htmlElement) {
+    const element = createCard(htmlElement);
     elementsList.prepend(element);
 }
 
@@ -63,7 +64,7 @@ function renderItems() {
 function openPopup(popup) {
     popup.classList.add('popup_opened');
     document.addEventListener('keydown', handleOverlay);
-    closePopupOverlay()
+    closePopupOverlay();
 }
 
 function closePopup() {
@@ -88,7 +89,7 @@ function handleOpenEditProfilePopup() {
 function handleOpenNewCardPopup() {
     openPopup(newCardPopup);
     const formNewCard = document.querySelector('#form_new-card');
-    formNewCard.reset()
+    formNewCard.reset();
 }
 
 function handleOverlay(evt) {
