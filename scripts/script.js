@@ -26,7 +26,7 @@ function createCardFunk(evt) {
     newCard.link = newCardLinkInput.value;
     renderCard(newCard);
     addBtnDisables(formBtn, inactiveButtonClass);
-    closePopup();
+    closePopup(newCardPopup);
 }
 
 function createCard(item) {
@@ -67,9 +67,8 @@ function openPopup(popup) {
     closePopupOverlay();
 }
 
-function closePopup() {
-    const popupOpened = document.querySelector('.popup_opened');
-    popupOpened.classList.remove('popup_opened');
+function closePopup(popup) {
+    popup.classList.remove('popup_opened');
     document.removeEventListener('keydown', handleOverlay);
 }
 
@@ -77,7 +76,7 @@ function handlePopupTypeEdit(evt) {
     evt.preventDefault();
     profileName.textContent = nameInput.value;
     profileJob.textContent = jobInput.value;
-    closePopup();
+    closePopup(editProfilePopup);
 }
 
 function handleOpenEditProfilePopup() {
@@ -94,7 +93,8 @@ function handleOpenNewCardPopup() {
 
 function handleOverlay(evt) {
     if (evt.key === 'Escape') {
-        closePopup();
+        const openedPopup = document.querySelector('.popup_opened')
+        closePopup(openedPopup)
     }
 }
 
@@ -103,18 +103,26 @@ const closePopupOverlay = () => {
     popups.forEach((popup) => {
         popup.addEventListener('click', (evt) => {
             if (evt.target === evt.currentTarget) {
-                closePopup();
+                closePopup(popup);
             }
         });
     });
 };
 
-editProfileBtn.addEventListener('click', handleOpenEditProfilePopup);
-editProfileBtnClose.addEventListener('click', closePopup);
+newCardPopup.addEventListener('submit', createCardFunk);
 editProfilePopup.addEventListener('submit', handlePopupTypeEdit);
 addImageBtn.addEventListener('click', handleOpenNewCardPopup);
-newCardBtnClose.addEventListener('click', closePopup);
-newCardPopup.addEventListener('submit', createCardFunk);
-bigImgCloseBtn.addEventListener('click', closePopup);
+editProfileBtn.addEventListener('click', handleOpenEditProfilePopup);
+editProfileBtnClose.addEventListener('click', () => {
+    closePopup(editProfilePopup);
+});
+
+newCardBtnClose.addEventListener('click', () => {
+    closePopup(newCardPopup);
+});
+
+bigImgCloseBtn.addEventListener('click',() => {
+    closePopup(imagePopup);
+});
 
 renderItems();
