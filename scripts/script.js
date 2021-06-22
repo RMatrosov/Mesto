@@ -1,6 +1,5 @@
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
-import {initialCards} from './cards.js';
 
 const editProfileBtn = document.querySelector('.profile__button');
 const editProfilePopup = document.querySelector('.popup_type_edit');
@@ -15,8 +14,10 @@ const newCardTitleInput = document.querySelector('#title');
 const newCardLinkInput = document.querySelector('#link');
 const newCardPopup = document.querySelector('.popup_type_new-card');
 const elementsList = document.querySelector(".elements__list");
-const imagePopup = document.querySelector(".popup_type_image");
+export const imagePopup = document.querySelector(".popup_type_image");
 const bigImgCloseBtn = document.querySelector(".popup__button-close_type_image");
+export const bigImage = document.querySelector(".popup__img");
+export const popupTypeImageTitle = document.querySelector(".popup__title");
 
 function createCardFunk(evt) {
     evt.preventDefault();
@@ -36,29 +37,6 @@ function addBtnDisables (btm, className){
 
 }
 
-/*function createCard(item) {
-    const htmlElement = elementTemplate.cloneNode(true);
-    const element = htmlElement.querySelector('.element');
-    const elementImg = element.querySelector('.element__image');
-    const elementTitle = element.querySelector('.element__title');
-    elementTitle.innerText = item.name;
-    elementImg.src = item.link;
-    elementImg.alt = item.name;
-    htmlElement.querySelector('.element__like').addEventListener('click', function (evt) {
-        evt.target.classList.toggle('element__like_active');
-    });
-    htmlElement.querySelector('.element__button-delete').addEventListener('click', function (evt) {
-        evt.target.closest('.element').remove();
-    })
-    elementImg.addEventListener('click', () => {
-        popupTypeImageTitle.textContent = elementTitle.textContent;
-        bigImage.src = elementImg.src;
-        bigImage.alt = elementTitle.textContent;
-        openPopup(imagePopup);
-    })
-    return htmlElement;
-}*/
-
 function renderCard(htmlElement) {
     let card = new Card(htmlElement, '.element_template')
     const cardElement = card.generateCard();
@@ -70,7 +48,7 @@ function renderItems() {
     initialCards.forEach(renderCard);
 }
 
-function openPopup(popup) {
+export function openPopup(popup) {
     popup.classList.add('popup_opened');
     document.addEventListener('keydown', handleOverlay);
     closePopupOverlay();

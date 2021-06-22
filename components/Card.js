@@ -1,3 +1,5 @@
+import {bigImage, imagePopup, openPopup, popupTypeImageTitle} from "../scripts/script.js";
+
 export default class Card {
     constructor(data, cardSelector) {
         this._name = data.name;
@@ -30,6 +32,9 @@ export default class Card {
         this._element.querySelector('.element__button-delete').addEventListener('click', (evt) => {
             this._removeCard(evt);
         });
+        this._element.querySelector('.element__image').addEventListener('click', () => {
+            this._showBigImg();
+        });
     };
 
     _toggleLike(evt) {
@@ -39,6 +44,13 @@ export default class Card {
     _removeCard(evt) {
         evt.target.closest('.element').remove();
     };
+
+    _showBigImg(){
+        popupTypeImageTitle.textContent = this._name;
+        bigImage.src = this._link;
+        bigImage.alt = this._name;
+        openPopup(imagePopup);
+    }
 
 };
 
