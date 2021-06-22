@@ -1,3 +1,7 @@
+import Card from '../components/Card.js';
+import FormValidator from '../components/FormValidator.js';
+import {initialCards} from './cards.js';
+
 const editProfileBtn = document.querySelector('.profile__button');
 const editProfilePopup = document.querySelector('.popup_type_edit');
 const editProfileBtnClose = document.querySelector('.popup__button-close');
@@ -11,16 +15,13 @@ const newCardTitleInput = document.querySelector('#title');
 const newCardLinkInput = document.querySelector('#link');
 const newCardPopup = document.querySelector('.popup_type_new-card');
 const elementsList = document.querySelector(".elements__list");
-const elementTemplate = document.querySelector(".element_template").content;
 const imagePopup = document.querySelector(".popup_type_image");
 const bigImgCloseBtn = document.querySelector(".popup__button-close_type_image");
-const bigImage = document.querySelector(".popup__img");
-const popupTypeImageTitle = document.querySelector(".popup__title");
 
 function createCardFunk(evt) {
     evt.preventDefault();
     const formBtn = document.querySelector('#newCardSubmitBtn');
-    const inactiveButtonClass = {inactiveButtonClass: 'form__button_disabled'};
+    const inactiveButtonClass = 'form__button_disabled';
     const newCard = {};
     newCard.name = newCardTitleInput.value;
     newCard.link = newCardLinkInput.value;
@@ -29,7 +30,13 @@ function createCardFunk(evt) {
     closePopup(newCardPopup);
 }
 
-function createCard(item) {
+function addBtnDisables (btm, className){
+    btm.classList.add(className);
+    btm.setAttribute('disabled', true);
+
+}
+
+/*function createCard(item) {
     const htmlElement = elementTemplate.cloneNode(true);
     const element = htmlElement.querySelector('.element');
     const elementImg = element.querySelector('.element__image');
@@ -50,11 +57,13 @@ function createCard(item) {
         openPopup(imagePopup);
     })
     return htmlElement;
-}
+}*/
 
 function renderCard(htmlElement) {
-    const element = createCard(htmlElement);
-    elementsList.prepend(element);
+    let card = new Card(htmlElement, '.element_template')
+    const cardElement = card.generateCard();
+    elementsList.prepend(cardElement);
+
 }
 
 function renderItems() {
@@ -121,7 +130,7 @@ newCardBtnClose.addEventListener('click', () => {
     closePopup(newCardPopup);
 });
 
-bigImgCloseBtn.addEventListener('click',() => {
+bigImgCloseBtn.addEventListener('click', () => {
     closePopup(imagePopup);
 });
 
