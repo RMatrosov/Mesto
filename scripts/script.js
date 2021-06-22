@@ -36,29 +36,6 @@ function addBtnDisables (btm, className){
 
 }
 
-/*function createCard(item) {
-    const htmlElement = elementTemplate.cloneNode(true);
-    const element = htmlElement.querySelector('.element');
-    const elementImg = element.querySelector('.element__image');
-    const elementTitle = element.querySelector('.element__title');
-    elementTitle.innerText = item.name;
-    elementImg.src = item.link;
-    elementImg.alt = item.name;
-    htmlElement.querySelector('.element__like').addEventListener('click', function (evt) {
-        evt.target.classList.toggle('element__like_active');
-    });
-    htmlElement.querySelector('.element__button-delete').addEventListener('click', function (evt) {
-        evt.target.closest('.element').remove();
-    })
-    elementImg.addEventListener('click', () => {
-        popupTypeImageTitle.textContent = elementTitle.textContent;
-        bigImage.src = elementImg.src;
-        bigImage.alt = elementTitle.textContent;
-        openPopup(imagePopup);
-    })
-    return htmlElement;
-}*/
-
 function renderCard(htmlElement) {
     let card = new Card(htmlElement, '.element_template')
     const cardElement = card.generateCard();
