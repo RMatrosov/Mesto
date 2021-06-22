@@ -67,6 +67,7 @@ const removeBtnDisabled = (buttonElement, props) => {
     buttonElement.removeAttribute('disabled');
 }
 
+
 enableValidation({
     formSelector: '.form',
     inputSelector: '.form__input',
