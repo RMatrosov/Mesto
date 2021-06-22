@@ -1,6 +1,5 @@
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
-import {initialCards} from './cards.js';
 
 const editProfileBtn = document.querySelector('.profile__button');
 const editProfilePopup = document.querySelector('.popup_type_edit');
@@ -15,8 +14,10 @@ const newCardTitleInput = document.querySelector('#title');
 const newCardLinkInput = document.querySelector('#link');
 const newCardPopup = document.querySelector('.popup_type_new-card');
 const elementsList = document.querySelector(".elements__list");
-const imagePopup = document.querySelector(".popup_type_image");
+export const imagePopup = document.querySelector(".popup_type_image");
 const bigImgCloseBtn = document.querySelector(".popup__button-close_type_image");
+export const bigImage = document.querySelector(".popup__img");
+export const popupTypeImageTitle = document.querySelector(".popup__title");
 
 function createCardFunk(evt) {
     evt.preventDefault();
@@ -47,7 +48,7 @@ function renderItems() {
     initialCards.forEach(renderCard);
 }
 
-function openPopup(popup) {
+export function openPopup(popup) {
     popup.classList.add('popup_opened');
     document.addEventListener('keydown', handleOverlay);
     closePopupOverlay();
