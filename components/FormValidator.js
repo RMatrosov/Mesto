@@ -6,6 +6,8 @@ export default class FormValidator {
         this._inputErrorClass = props.inputErrorClass;
         this._errorClass = props.errorClass;
         this._validateElement = validateElement;
+        this._inputList = Array.from(this._validateElement.querySelectorAll(this._inputSelector));
+        this._buttonElement = this._validateElement.querySelector(this._submitButtonSelector);
     }
 
     enableValidation() {
@@ -16,9 +18,6 @@ export default class FormValidator {
     };
 
     _setEventListeners() {
-        this._inputList = Array.from(this._validateElement.querySelectorAll(this._inputSelector));
-        this._buttonElement = this._validateElement.querySelector(this._submitButtonSelector);
-
         this._toggleButtonState();
         this._inputList.forEach((inputElement) => {
             inputElement.addEventListener('input', () => {
@@ -28,9 +27,9 @@ export default class FormValidator {
         });
     };
 
-    _toggleButtonState = () => {
+    _toggleButtonState() {
         if (this._hasInvalidInput(this._inputList)) {
-            this._addBtnDisables(this._buttonElement);
+            this.addBtnDisables(this._buttonElement);
         } else {
             this._removeBtnDisabled(this._buttonElement);
         }
@@ -42,7 +41,7 @@ export default class FormValidator {
         })
     };
 
-    _addBtnDisables = () => {
+    addBtnDisables = () => {
         this._buttonElement.classList.add(this._inactiveButtonClass);
         this._buttonElement.setAttribute('disabled', true);
 
@@ -78,22 +77,9 @@ export default class FormValidator {
 
 }
 
-const props = {
-    formSelector: '.form',
-    inputSelector: '.form__input',
-    submitButtonSelector: '.form__button',
-    inactiveButtonClass: 'form__button_disabled',
-    inputErrorClass: 'form__input_type_error',
-    errorClass: 'form__input-error_active'
-};
 
-const editForm = document.querySelector('form[name="edit-profile"]');
-const newCardForm = document.querySelector('form[name="new-card"]');
 
-const EditForm = new FormValidator(props, editForm)
-const FormNewCard = new FormValidator(props, newCardForm)
-EditForm.enableValidation();
-FormNewCard.enableValidation();
+
 
 
 

@@ -1,12 +1,12 @@
-
-import {bigImage, imagePopup, openPopup, popupTypeImageTitle} from "../scripts/script.js";
+import {bigImage, imagePopup, popupTypeImageTitle} from "../scripts/utils.js";
 
 
 export default class Card {
-    constructor(data, cardSelector) {
+    constructor(data, cardSelector, openPopup) {
         this._name = data.name;
         this._link = data.link;
         this._cardSelector = cardSelector;
+        this._openPopup = openPopup;
     }
 
     _getTemplate() {
@@ -20,8 +20,10 @@ export default class Card {
     generateCard() {
         this._element = this._getTemplate();
         this._setEventListeners();
+        const elementImg = this._element.querySelector('.element__image');
 
-        this._element.querySelector('.element__image').src = this._link;
+        elementImg.src = this._link;
+        elementImg.alt = this._name;
         this._element.querySelector('.element__title').textContent = this._name;
 
         return this._element;
@@ -32,7 +34,7 @@ export default class Card {
             this._toggleLike(evt);
         });
         this._element.querySelector('.element__button-delete').addEventListener('click', (evt) => {
-            this._removeCard(evt);
+            this._removeCard();
         });
         this._element.querySelector('.element__image').addEventListener('click', () => {
             this._showBigImg();
@@ -43,15 +45,16 @@ export default class Card {
         evt.target.classList.toggle('element__like_active');
     };
 
-    _removeCard(evt) {
-        evt.target.closest('.element').remove();
+    _removeCard() {
+        this._element.remove();
+        this._element = null;
     };
 
-    _showBigImg(){
+    _showBigImg() {
         popupTypeImageTitle.textContent = this._name;
         bigImage.src = this._link;
         bigImage.alt = this._name;
-        openPopup(imagePopup);
+        this._openPopup(imagePopup);
     }
 
 };

@@ -1,5 +1,6 @@
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
+import {imagePopup} from "./utils.js";
 
 const editProfileBtn = document.querySelector('.profile__button');
 const editProfilePopup = document.querySelector('.popup_type_edit');
@@ -14,31 +15,24 @@ const newCardTitleInput = document.querySelector('#title');
 const newCardLinkInput = document.querySelector('#link');
 const newCardPopup = document.querySelector('.popup_type_new-card');
 const elementsList = document.querySelector(".elements__list");
-export const imagePopup = document.querySelector(".popup_type_image");
 const bigImgCloseBtn = document.querySelector(".popup__button-close_type_image");
-export const bigImage = document.querySelector(".popup__img");
-export const popupTypeImageTitle = document.querySelector(".popup__title");
+const formNewCard = document.querySelector('#form_new-card');
+const Escape = 'Escape';
+
+
 
 function createCardFunk(evt) {
     evt.preventDefault();
-    const formBtn = document.querySelector('#newCardSubmitBtn');
-    const inactiveButtonClass = 'form__button_disabled';
     const newCard = {};
     newCard.name = newCardTitleInput.value;
     newCard.link = newCardLinkInput.value;
     renderCard(newCard);
-    addBtnDisables(formBtn, inactiveButtonClass);
     closePopup(newCardPopup);
-}
-
-function addBtnDisables (btm, className){
-    btm.classList.add(className);
-    btm.setAttribute('disabled', true);
-
+    newCardForm.addBtnDisables();
 }
 
 function renderCard(htmlElement) {
-    let card = new Card(htmlElement, '.element_template')
+    const card = new Card(htmlElement, '.element_template', openPopup)
     const cardElement = card.generateCard();
     elementsList.prepend(cardElement);
 
@@ -48,15 +42,14 @@ function renderItems() {
     initialCards.forEach(renderCard);
 }
 
-export function openPopup(popup) {
-    popup.classList.add('popup_opened');
-    document.addEventListener('keydown', handleOverlay);
-    closePopupOverlay();
-}
-
 function closePopup(popup) {
     popup.classList.remove('popup_opened');
     document.removeEventListener('keydown', handleOverlay);
+}
+
+function openPopup(popup) {
+    popup.classList.add('popup_opened');
+    document.addEventListener('keydown', handleOverlay);
 }
 
 function handlePopupTypeEdit(evt) {
@@ -74,12 +67,11 @@ function handleOpenEditProfilePopup() {
 
 function handleOpenNewCardPopup() {
     openPopup(newCardPopup);
-    const formNewCard = document.querySelector('#form_new-card');
     formNewCard.reset();
 }
 
 function handleOverlay(evt) {
-    if (evt.key === 'Escape') {
+    if (evt.key === Escape) {
         const openedPopup = document.querySelector('.popup_opened')
         closePopup(openedPopup)
     }
@@ -88,7 +80,7 @@ function handleOverlay(evt) {
 const closePopupOverlay = () => {
     const popups = Array.from(document.querySelectorAll('.popup'));
     popups.forEach((popup) => {
-        popup.addEventListener('click', (evt) => {
+        popup.addEventListener('mousedown', (evt) => {
             if (evt.target === evt.currentTarget) {
                 closePopup(popup);
             }
@@ -112,4 +104,19 @@ bigImgCloseBtn.addEventListener('click', () => {
     closePopup(imagePopup);
 });
 
+const props = {
+    formSelector: '.form',
+    inputSelector: '.form__input',
+    submitButtonSelector: '.form__button',
+    inactiveButtonClass: 'form__button_disabled',
+    inputErrorClass: 'form__input_type_error',
+    errorClass: 'form__input-error_active'
+};
+const editForm = new FormValidator(props, document.querySelector('form[name="edit-profile"]'));
+const newCardForm = new FormValidator(props, document.querySelector('form[name="new-card"]'));
+
+editForm.enableValidation();
+newCardForm.enableValidation();
+
+closePopupOverlay();
 renderItems();
