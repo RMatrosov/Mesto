@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="pages/index.css">
+
     <title>Mesto</title>
 </head>
 <body class="page">
@@ -14,7 +14,7 @@
     <main>
         <section class="profile">
             <div class="profile__wrapper">
-                <img src="./images/profile.png" alt="фото профиля" class="profile__image">
+                <img src="<%=require('./images/profile.png')%>" alt="фото профиля" class="profile__image">
                 <div class="profile__info">
                     <h1 class="profile__name">Жак-Ив Кусто</h1>
                     <button type="button" class="profile__button"></button>
@@ -54,7 +54,7 @@
         <button type="button" class="popup__button-close" id="newCardBtnClose"></button>
         <form action="#" id="form_new-card" class="form" name="new-card" novalidate>
             <h2 class="form__heading">Новое место</h2>
-            <input type="text" class="form__input" name="title" id="title" placeholder="Название" minlength="2" maxlength="200" required>
+            <input type="text" class="form__input" name="name" id="title" placeholder="Название" minlength="2" maxlength="200" required>
             <span class="form__input-error title-input-error" ></span>
             <input type="url" class="form__input" name="link" id="link" placeholder="Ссылка на картинку" required>
             <span class="form__input-error link-input-error" ></span>
@@ -82,7 +82,6 @@
         </div>
     </li>
 </template>
-<script src="scripts/cards.js"></script>
-<script type="module" src="scripts/script.js"></script>
+
 </body>
 </html>
