@@ -1,4 +1,4 @@
-import '../pages/index.css';
+import './index.css';
 
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
@@ -8,7 +8,7 @@ import {
     elementsList,
     initialCards,
     jobInput,
-    nameInput, popupImgData,
+    nameInput,
     userData
 } from "../utils/utils.js";
 import Section from "../components/Section.js";
@@ -16,32 +16,31 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 
+
+const popupWithImage = new PopupWithImage('.popup_type_image')
+popupWithImage.setEventListeners();
+
+const createCard = function (item) {
+    const card = new Card(item, '.element_template', {
+        handleCardClick: (evt) => {
+            popupWithImage.open(evt.target.alt, evt.target.src);
+        }
+    });
+    const cardElement = card.generateCard();
+    cardList.addItem(cardElement);
+}
+
 const cardList = new Section({
-    items: initialCards,
     renderer: (item) => {
-        const card = new Card(item, '.element_template', {
-            handleCardClick: (evt) => {
-                const popupWithImage = new PopupWithImage('.popup_type_image')
-                popupWithImage.setEventListeners()
-                popupWithImage.open(evt.target.alt, evt.target.src);
-            }
-        });
-        const cardElement = card.generateCard();
-        cardList.addItem(cardElement);
+        createCard(item)
     }
 }, elementsList);
 
+cardList.renderItems(initialCards);
+
 const addCardPopup = new PopupWithForm('.popup_type_new-card', {
     formSubmit: (item) => {
-        const card = new Card(item, '.element_template', {
-            handleCardClick: (evt) => {
-                const popupWithImage = new PopupWithImage('.popup_type_image')
-                popupWithImage.setEventListeners()
-                popupWithImage.open(evt.target.alt, evt.target.src);
-            }
-        });
-        const cardElement = card.generateCard();
-        cardList.addItem(cardElement);
+        createCard(item)
         addCardPopup.close();
         newCardForm.addBtnDisables();
     }
@@ -62,14 +61,14 @@ editProfilePopup.setEventListeners();
 
 addImageBtn.addEventListener('click', () => addCardPopup.open());
 
-editProfileBtn.addEventListener('click', () => {
+editProfileBtn.addEventListener('click', (evt) => {
+    editForm._inputList.forEach(input => editForm.isValid(input));
+    editForm.toggleButtonState();
     editProfilePopup.open();
     const newUserInfo = userInfo.getUserInfo();
     nameInput.value = newUserInfo.name;
     jobInput.value = newUserInfo.job;
 });
-
-cardList.renderItems();
 
 const props = {
     formSelector: '.form',
@@ -79,6 +78,7 @@ const props = {
     inputErrorClass: 'form__input_type_error',
     errorClass: 'form__input-error_active'
 };
+
 const editForm = new FormValidator(props, document.querySelector('form[name="edit-profile"]'));
 const newCardForm = new FormValidator(props, document.querySelector('form[name="new-card"]'));
 

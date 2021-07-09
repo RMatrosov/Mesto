@@ -5,22 +5,22 @@ export default class PopupWithForm extends Popup {
         super(popupSelector)
         this._element = document.querySelector(this._popupSelector);
         this._formSubmit = formSubmit;
-        this._formList = this._element.querySelector('.form');
+        this._form = this._element.querySelector('.form');
     }
 
     _getInputValues() {
-        const newCard = {};
-        this._inputValue = this._formList.querySelectorAll('.form__input');
+        const newInfo = {};
+        this._inputValue = this._form.querySelectorAll('.form__input');
         this._inputValue.forEach((input) => {
-            newCard[input.name] = input.value;
+            newInfo[input.name] = input.value;
         })
-        return newCard;
+        return newInfo;
     }
 
     setEventListeners() {
         super.setEventListeners()
         this._getInputValues()
-        this._formList.addEventListener('submit', (evt) => {
+        this._form.addEventListener('submit', (evt) => {
             evt.preventDefault();
             this._formSubmit(this._getInputValues())
         })
@@ -28,6 +28,6 @@ export default class PopupWithForm extends Popup {
 
     close() {
         super.close();
-        this._formList.reset();
+        this._form.reset();
     }
 }
