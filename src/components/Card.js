@@ -1,5 +1,7 @@
 export default class Card {
-    constructor(data, userId, cardSelector, {handleCardClick}, {addLike}, {deleteLike}, confirmationPopup) {
+    constructor(data, userId, cardSelector,
+                {handleCardClick}, {addLike}, {deleteLike},
+                {handleDeleteClick}) {
         this._userId = userId;
         this._ownerId = data.owner._id;
         this._cardId = data._id;
@@ -11,7 +13,7 @@ export default class Card {
         this.addLike = addLike;
         this.deleteLike = deleteLike;
         this.dataLikes = data.likes;
-        this.confirmationPopup = confirmationPopup;
+        this.handleDeleteClick = handleDeleteClick;
     }
 
     _getTemplate() {
@@ -41,16 +43,13 @@ export default class Card {
     _setEventListeners() {
         this._element.querySelector('.element__like').addEventListener('click', (evt) => {
             if (this._element.querySelector('.element__like').classList.contains('element__like_active')) {
-                this.deleteLike(this._cardId, this._element)
-                /*this._hideLike(evt);*/
+                this.deleteLike(this._cardId)
             } else {
-                /*this._showLike(evt);*/
-                this.addLike(this._cardId, this._element)
+                this.addLike(this._cardId)
             }
         });
         this._element.querySelector('.element__button-delete').addEventListener('click', () => {
-            this.confirmationPopup.open();
-            this.confirmationPopup.submitBtn(this.elementImg.id, this._element)
+            this.handleDeleteClick(this.elementImg.id, this._element);
         });
         this._element.querySelector('.element__image').addEventListener('click', (evt) => {
             this._handleCardClick(evt);
@@ -59,22 +58,21 @@ export default class Card {
 
 
     hideLike(elem) {
-        /*evt.target.classList.toggle('element__like_active');*/
-        elem.querySelector('.element__like-counter').textContent--;
+        this._element.querySelector('.element__like-counter').textContent = elem.likes.length;
         this._element.querySelector('.element__like').classList.toggle('element__like_active');
     };
 
     showLike(elem) {
-       /* evt.target.classList.toggle('element__like_active');*/
-        elem.querySelector('.element__like-counter').textContent++;
-        elem.querySelector('.element__like').classList.toggle('element__like_active');
+        this._element.querySelector('.element__like-counter').textContent = elem.likes.length;
+        this._element.querySelector('.element__like').classList.toggle('element__like_active');
     };
 
     _isLiked(likes) {
         likes.forEach(like => {
             if (like._id === this._userId) {
                 this._element.querySelector('.element__like').classList.add('element__like_active');
-            };
+            }
+            ;
         });
     };
 
