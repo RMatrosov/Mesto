@@ -10,7 +10,7 @@ import {
     nameInput, newCardBtn,
     profileImgBtn, props,
     userData
-} from "../utils/utils.js";
+} from "../constants/constants.js";
 import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
