@@ -74,8 +74,7 @@ const createCard = function (item) {
             }
         }, {
             handleDeleteClick: (id, elem) => {
-                confirmationPopup.submitBtn(id, elem)
-                confirmationPopup.open()
+                confirmationPopup.open(id, elem);
             }
         });
 
